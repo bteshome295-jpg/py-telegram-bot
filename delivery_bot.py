@@ -1,12 +1,28 @@
+import os
+from threading import Thread
+from flask import Flask
 import telebot
 from telebot import types
 
+# 1. የ Flask ዌብ ሰርቨር ማዋቀሪያ (Render Port scan timeout ለመከላከል)
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Bot is running!"
+
+def run_flask():
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
+
+# Flask ሰርቨሩን በጀርባ (Thread) ማስነሳት - ከቦቱ polling በፊት መሆን አለበት!
+Thread(target=run_flask, daemon=True).start()
+
+# 2. የቴሌግራም ቦት ማዋቀሪያ
 TOKEN = "8914682909:AAEubOSzVSy7OZVtcTWqEULz9Su7VLEE_nc"
 bot = telebot.TeleBot(TOKEN)
 
-# የራስሽን Telegram ID ከ @userinfobot አግኝተሽ እዚህ ጠቅላላ ቁጥሩን አስገቢ (ለምሳሌ: "123456789")
 ADMIN_CHAT_ID = "6997377079"
-
 GROUP_LINK = "https://t.me/kbgforstudents"
 
 @bot.message_handler(commands=['start'])
@@ -101,19 +117,3 @@ def process_order(message):
 
 print("ቦቱ ሥራ ጀምሯል...")
 bot.infinity_polling()
-import os
-from flask import Flask
-from threading import Thread
-
-app = Flask('')
-
-@app.route('/')
-def home():
-    return "Bot is running!"
-
-def run():
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host='0.0.0.0', port=port)
-
-# Dummy Server ማስነሳት
-Thread(target=run).start()
