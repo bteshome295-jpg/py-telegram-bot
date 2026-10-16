@@ -101,3 +101,19 @@ def process_order(message):
 
 print("ቦቱ ሥራ ጀምሯል...")
 bot.infinity_polling()
+import os
+from flask import Flask
+from threading import Thread
+
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Bot is running!"
+
+def run():
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
+
+# Dummy Server ማስነሳት
+Thread(target=run).start()
