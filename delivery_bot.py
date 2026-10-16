@@ -19,7 +19,7 @@ def run_flask():
 Thread(target=run_flask, daemon=True).start()
 
 # 2. የቴሌግራም ቦት ማዋቀሪያ
-TOKEN = "8914682909:AAEubOSzVSy7OZVtcTWqEULz9Su7VLEE_nc"
+TOKEN = 8914682909:AAHOQMtq38-AHl3qLpeLFOWMkRJQcALmYzg
 bot = telebot.TeleBot(TOKEN)
 
 ADMIN_CHAT_ID = "6997377079"
